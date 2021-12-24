@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.min.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>Document</title>
+</head>
+<body class="flex flex-col justify-center p-2  items-center h-screen width-full space-y-4">
+    <div class="absolute h-screen opacity-50 w-full bg-black">
+       
+    </div>
+    <div class="bg-white p-4 z-50 w-full relative lg:w-1/4 rounded-3xl h-auto space-y-3">
+        <h1 class="text-center text-2xl text-gray-600">Welcome</h1>
+        <div class="space-y-2">
+            <form id="form-data" class="space-y-2" action="">
+                <input id="username" class="w-full rounded-2xl" type="text" placeholder="Username" />
+                <input id="password" class="w-full rounded-2xl" type="password" placeholder="Password" />
+                <button id="submit" class="bg-blue-600 w-full p-3 rounded-2xl text-white uppercase">Login</button>
+            </form>
+        </div>
+    </div>
+    
+</body>
+<script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function() {
+        $("#submit").click(function(e){
+            e.preventDefault();
+            let username = $('#username').val();
+            let password = $('#password').val();
+
+            if(username==="lecture" && password==="12345678"){
+                location.replace('input.html')
+            }else{
+                alert("Either email or username is incorrect")
+            }
+        })
+    })
+</script>
+</html>

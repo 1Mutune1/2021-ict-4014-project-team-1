@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.min.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>Document</title>
+</head>
+<body class="flex flex-col justify-center p-2  items-center h-screen width-full space-y-4">
+    <div class="absolute h-screen opacity-50 w-full bg-black">
+       
+    </div>
+   
+    <div class="bg-white p-4 z-40 w-full relative lg:w-1/4 rounded-3xl space-y-3">
+        <h1 class="text-center text-2xl text-gray-600">Add Student Data</h1>
+        <div class="space-y-2">
+            <form id="form-data" class="space-y-2" action="">
+                <input id="id"  class="w-full rounded-2xl outline-none border-2 p-2" type="text" placeholder="Enter Computer Number" />
+                <input id="courses"  class="w-full rounded-2xl outline-none border-2 p-2" type="text" placeholder="Number of Courses" />
+                <input id="sponsor"  class="w-full rounded-2xl outline-none border-2 p-2" type="text" placeholder="Sponsor" />
+                <input id="accommodation" class="w-full rounded-2xl outline-none border-2 p-2" type="text" placeholder="Accomodation" />
+                <input id="minor"  class="w-full rounded-2xl outline-none border-2 p-2" type="text" placeholder="Minor" />
+                <input id="moodle"  class="w-full rounded-2xl outline-none border-2 p-2" type="text" placeholder="Moodle" />
+                <input id="cascore"  class="w-full rounded-2xl outline-none border-2 p-2" type="number" placeholder="CA Score" />
+                <input id="totalcourses"  class="w-full rounded-2xl outline-none border-2 p-2" type="number" placeholder="Total Courses" />
+                <select id="gender"  class="w-full rounded-2xl outline-none border-2 p-2">
+                    <option value="F" selected>Female</option>
+                    <option value="M">Male</option>
+                </select>
+                <input id="acyear"  class="w-full rounded-2xl outline-none border-2 p-2" type="text" placeholder="Academic Year" />
+                <input id="major"  class="w-full rounded-2xl outline-none border-2 p-2" type="text" placeholder="Major" />
+                <input id="program"  class="w-full rounded-2xl outline-none border-2 p-2" type="text" placeholder="Program" />
+                <input id="sch"  class="w-full rounded-2xl outline-none border-2 p-2" type="text" placeholder="School" />
+                <input id="year"  class="w-full rounded-2xl outline-none border-2 p-2" type="number" placeholder="Year of study" />
+                
+                <button id="submit" class="bg-blue-600 w-full p-3 rounded-2xl text-white uppercase">Submit</button>
+            </form>
+        </div>
+    </div>
+    
+</body>
+<script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js" integrity="sha512-UnrKxsCMN9hFk7M56t4I4ckB4N/2HHi0w/7+B/1JsXIX3DmyBcsGpT3/BsuZMZf+6mAr0vP81syWtfynHJ69JA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    // const ExcelJS = require('exceljs/dist/es5');
+    const workbook = new ExcelJS.Workbook()
+    workbook.creator = 'Me';
+    workbook.lastModifiedBy = 'Her';
+    workbook.created = new Date(1985, 8, 30);
+    workbook.modified = new Date();
+    workbook.lastPrinted = new Date(2016, 9, 27);
+    workbook.properties.date1904 = true;
+    const worksheet = workbook.addWorksheet('New Sheet');
+
+    async function read() {
+        const file = await workbook.xlsx.readFile('Reports Demographics1.csv')
+        console.log(file)
+    }
+
+    const row = worksheet.addRow({id: 1, name: 'John Doe', age: 35});
+    $(document).ready(function() {
+        $("#submit").click(function(e){
+            e.preventDefault();
+            let id = $('#id').val();
+            let gender = $('#gender').val();
+            let minor = $('#minor').val();
+            let major = $('#major').val();
+            let totalCourses = $('#totalcourses').val();
+            let sponsor = $('#sponsor').val();
+            let accommodation = $('#accommodation').val();
+            let cascore = $('#cascore').val();
+            let moodle = $('#moodle').val();
+            // let major = $('#major').val();
+            let acyear = $('#acyear').val();
+            let program = $('#program').val();
+            let year = $('#year').val();
+            let sch = $('#sch').val();
+
+            let obj = {
+                    id:id,
+                    gender:gender,
+                    minor:minor,
+                    major:major,
+                    totalCourses:totalCourses,
+                    sponsor:sponsor,
+                    accomodated:accommodation,
+                    cascore:cascore,
+                    moodle:moodle,
+                    major:major,
+                    acyear:acyear,
+                    program:program,
+                    year:year,
+                    sch:sch,
+                }
+
+                console.log()
+            $.ajax({
+                method: 'POST',
+                url: `http://localhost:5000/addrec`,
+                contentType: 'application/json',
+                // dataType: 'json',
+                data: JSON.stringify(obj),
+                success: function(res){
+                    console.log(res);
+                }
+            })
+        })
+        $("#logout").click(function(e) {
+            e.preventDefault();
+            location.replace('index.html')
+        })
+    })
+</script>
+</html>
